@@ -6,6 +6,12 @@ from PIL import Image, ImageTk
 import random
 import numpy as np
 
+#change particle
+def increment():
+    global nasu
+    nasu += 1
+    
+
 #popup function
 def show_popup():
     messagebox.showwarning("Input Value Error", "You have inserted wrong Value for either of number of particles, total time or dt time !!!")
@@ -68,8 +74,8 @@ def get_values_and_insert_coordinates():
             file.write("1"+"\n"+str(n)+'\n'+str(t)+'\n'+str(dt)+"\n")
         
         # for i in range(0,n):
-        i=0
-        while i<n:
+        nasu=0
+        while nasu<n:
             #space label
             space_label3=Label(root,text="-"*137)
             space_label3.grid(row=5,column=0,columnspan=9)
@@ -79,23 +85,23 @@ def get_values_and_insert_coordinates():
             space_label5.grid(row=11,column=0,columnspan=9)
             
             #mass
-            mass_label=Label(root,text=f"Mass {i+1}")
+            mass_label=Label(root,text=f"Mass {nasu+1}")
             mass_label.grid(column=1,row=6)
             mass_entry=Entry(root,width=10)
             mass_entry.grid(row=6,column=2)
 
             #charge
-            charge_label=Label(root,text=f"Charge {i+1}")
+            charge_label=Label(root,text=f"Charge {nasu+1}")
             charge_label.grid(row=6,column=3)
             charge_entry=Entry(root,width=10)
             charge_entry.grid(row=6,column=4)
 
             #coordinates label
-            coordinates_label=Label(root,text=f"Coordinates {i+1}")
+            coordinates_label=Label(root,text=f"Coordinates {nasu+1}")
             coordinates_label.grid(row=9,column=0)
 
             #velocity label
-            velocity_label=Label(root,text=f"Velocity {i+1}")  
+            velocity_label=Label(root,text=f"Velocity {nasu+1}")  
             velocity_label.grid(row=9,column=3)
 
             #  x,y,z for coordinates 
@@ -131,11 +137,15 @@ def get_values_and_insert_coordinates():
             z_velocity_entry.grid(row=10,column=5)
 
             #button to except values of coordinates, mass, charge, velocity
-            coordinates_velocity_button=Button(root,text=f"Except the Values \n for particle {i+1}",command= lambda: coordinates_velocity_mass_charge(n,i,mass_entry,charge_entry,x_coordinates_entry,y_coordinates_entry,z_coordinates_entry,x_velocity_entry,y_velocity_entry,z_velocity_entry))
+            coordinates_velocity_button=Button(root,text=f"Except the Values \n for particle {nasu+1}",command= lambda: coordinates_velocity_mass_charge(n,i,mass_entry,charge_entry,x_coordinates_entry,y_coordinates_entry,z_coordinates_entry,x_velocity_entry,y_velocity_entry,z_velocity_entry))
             coordinates_velocity_button.grid(row=12,column=2,columnspan=2)
-            h=input()
-            i=i+1
 
+            #button for entering new particle data
+            change_particle_button=Button(root,text="Next",command= lambda: increment(nasu))
+            change_particle_button.grid(row=12, column=1,columnspan=1)
+
+            
+            
     except ValueError:
         show_popup()
 
