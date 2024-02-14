@@ -8,7 +8,7 @@ K=8.9975*(10**9)
 G=6.67430*(10**(-11))
 from math import *
 
-#testing my model
+# testing my model
 # F=[4*sin(5*x)+6,5*sin(6*y)+7,6*sin(7*z)+8]
 
 #number of particles
