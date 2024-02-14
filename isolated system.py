@@ -342,10 +342,6 @@ for a in range(0,t2+1):
     torque_1d[i]=s**(1/2)
 
     print(f"hello{a}")
-    # demon=speed[a][1]
-    # # testing our program
-    # for i in range(0,3):
-    #     parameters3d[a+1][0][i]=parameters3d[a][0][i]    
 
 
 #extras
@@ -366,12 +362,6 @@ print("time for 1 iteration = ",(end-start)/(t2+1))
 print("------------------------------------------------")
 dis=(((parameters3d[a][1][0]-parameters3d[0][1][0])**2)+((parameters3d[a][1][1]-parameters3d[0][1][1])**2)+((parameters3d[a][1][2]-parameters3d[0][1][2])**2))**(1/2)
 
-
-print("final- initial position = ",dis)
-print("final velocity = ",demon)
-print("initial velocity = ", 13.1534)
-print("final - initial velocity = ",abs(13.1534-demon))
-print("percentage error = ",(abs(13.1534-demon)*100)/(13.1534))
 
 #calling graph drawing functions
 force_plot(net_force,t2,n,dt,t)

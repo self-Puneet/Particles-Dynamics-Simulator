@@ -12,18 +12,6 @@ G=6.67430*(10**(-11))
 #number of particles
 n=int(input("numbers of particles= "))
 
-#radius of particles
-r=0.0001
-
-#cofficient of restitution 
-e=1
- 
-# #wall equation
-# area_vector=input("enter area vector of wall: ")
-# area_vector=eval(area_vector)
-# point_on_plane=input("enter point on plane: ")
-# point_on_plane=eval(point_on_plane)
-# magnitude_of_area_vector=((area_vector[0]**2)+(area_vector[1]**2)+(area_vector[2]**2))**(1/2)
 
 #time intervals
 t=float(input("desired time= "))
@@ -50,10 +38,6 @@ for ab in range(0,n):
     list2=eval(str)
     velocity2d.append(list2)
 velocity[0]=velocity2d
-
-#inputing coordinates of random point
-str=input("\t\t\tcoordinate of random point: ")
-random_point=eval(str)
 
 # introducing all arrays before initiating loop.
 #distance
@@ -96,36 +80,10 @@ TPE=np.zeros((t2+1))
 energy=np.zeros((t2+1,n))
 total_energy=np.zeros((t2+1))
 
-#angular momentum
-angular_momentum_3d=np.zeros((t2+1,n,3))
-angular_momentum_2d=np.zeros((t2+1,n))
-vector_angular_momentum_1d=np.zeros((t2+1,3))
-angular_momentum_1d=np.zeros((t2+1))
-distance_vector_random=np.zeros((t2+1,n,3))
-
-#torque
-torque=np.zeros((t2+1,n,3))
-net_torque=np.zeros((t2+1,n))
-torque_2d=np.zeros((t2+1,3))
-torque_1d=np.zeros((t2+1))
-
 start=time.time()
 
 for a in range(0,t2+1):
    
-    # #calculating distance of each particle at each instant from choosen line
-    # print(n)
-    # print(velocity.shape)
-    # for i in range(0,n):
-    #     print(n)
-    #     print(velocity.shape)
-    #     if (condition_for_approching_particle(n,a,velocity,area_vector) is True):
-    #         wer=distance_of_particle_from_wall(area_vector,parameters3d,point_on_plane,magnitude_of_area_vector,a,n)
-    #         if (wer<r):
-    #             qwe=new_velocity_after_collision_fo_wall(a,n,velocity,area_vector,e)
-    #             for j in range(0,3):
-    #                 velocity[a][n][j]=qwe[j]
-  
     #distances
     #array storing distances of any particle with each particle
     vary_distance_array_3d=np.zeros((n,n))
@@ -286,55 +244,7 @@ for a in range(0,t2+1):
     #GPE of each particle due to all particles agrigately
     GPE_2d[a]=np.sum(GPE_3d[a],axis=0)
 
-
-    #finding distance vector of any particle from the random particle
-    for j in range(0,n):
-        for k in range(0,3):
-            distance_vector_random[a][j][k]=parameters3d[a][j][k]-random_point[k]
-    
-    #angular momentum
-    #vector form of angular momentum of any particle at any instant
-    for j in range(0,n):
-        for k in range(0,3):
-            c=np.zeros((3))
-            c=cros_product(distance_vector_random[a][j],velocity[a][j])
-            angular_momentum_3d[a][j][k]=parameters3d[a][j][4]*c[k]
-    #net angular momentum of each particles at any instant
-    for j in range(0,n):
-        s=0
-        for k in range(0,3):s=s+(angular_momentum_3d[a][j][k]**2)
-        angular_momentum_2d[a][j]=s**(1/2)
-    #vector form of angular momentum of whole system of particles at any instant
-    vector_angular_momentum_1d[a]=np.sum(angular_momentum_3d[a],axis=0)
-    #net angular momentum of whole system of particles at any instant
-    s=0
-    for j in range(0,3):s=s+(vector_angular_momentum_1d[a][j]**2) 
-    s=s**(1/2)
-    angular_momentum_1d[a]=s
-
-    # toque
-    #vectorial torque
-    for j in range(0,n):
-        for k in range(0,3):
-            torque[a][j][k]=cros_product(distance_vector_random[a][j],force[a][j])[k]
-    #net torque on each particle
-    for j in range(0,n):
-        s=0
-        for k in range(0,3):s=s+(torque[a][j][k]**2)
-        net_torque[a][j]=s**(1/2)
-    #torque on whole system of particle vectorially
-    torque_2d[a]=np.sum(torque[a],axis=0)
-    #net torque on whole system of particles
-    s=0
-    for j in range(0,3):
-        s=s+(torque_2d[a][j]**2)
-    torque_1d[i]=s**(1/2)
-
     print(f"hello{a}")
-    # demon=speed[a][1]
-    # # testing our program
-    # for i in range(0,3):
-    #     parameters3d[a+1][0][i]=parameters3d[a][0][i]    
 
 
 #extras
@@ -352,15 +262,6 @@ end=time.time()
 print("total time = ",end-start)
 print("time for 1 iteration = ",(end-start)/(t2+1))
 
-print("------------------------------------------------")
-dis=(((parameters3d[a][1][0]-parameters3d[0][1][0])**2)+((parameters3d[a][1][1]-parameters3d[0][1][1])**2)+((parameters3d[a][1][2]-parameters3d[0][1][2])**2))**(1/2)
-
-
-# print("final- initial position = ",dis)
-# print("final velocity = ",demon)
-# print("initial velocity = ", 13.1534)
-# print("final - initial velocity = ",abs(13.1534-demon))
-# print("percentage error = ",(abs(13.1534-demon)*100)/(13.1534))
 
 #calling graph drawing functions
 force_plot(net_force,t2,n,dt,t)
@@ -368,14 +269,6 @@ hello(n,parameters3d,t2)
 coordinates_plot(parameters3d,t2,n,t)
 speed_plot(speed,dt,n,t2,t)
 linear_momentum_plot(linear_momentum,t2,dt,n,t)
-total_linear_momentum_plot(total_linear_momuntum,dt,t,t2)
 KE_plot(KE,t2,dt,t,n)
-total_KE_plot(total_KE,t2,dt,t)
-EPE_plot(t2,n,EPE_2d,dt,t)
-GPE_plot(t2,t,n,dt,GPE_2d)
 TPE_plot(dt,n,t,TPE_2d,t2)
-total_EPE_plot(EPE,t2,dt,t)
-total_GPE_plot(GPE,t2,dt,t)
-total_TPE_plot(TPE,t2,dt,t)
 energy_plot(energy,t2,n,t,dt)
-total_energy_plot(total_energy,t2,t,dt)
