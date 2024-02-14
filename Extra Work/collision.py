@@ -1,7 +1,7 @@
 #modules, constants, functions:-
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
+from mpl_toolkits.mplot3d import Axes3D 
 import functions
 from functions import *
 import time
@@ -11,6 +11,19 @@ G=6.67430*(10**(-11))
 
 #number of particles
 n=int(input("numbers of particles= "))
+
+#radius of particles
+r=0.0001
+
+#cofficient of restitution 
+e=1
+ 
+# #wall equation
+# area_vector=input("enter area vector of wall: ")
+# area_vector=eval(area_vector)
+# point_on_plane=input("enter point on plane: ")
+# point_on_plane=eval(point_on_plane)
+# magnitude_of_area_vector=((area_vector[0]**2)+(area_vector[1]**2)+(area_vector[2]**2))**(1/2)
 
 #time intervals
 t=float(input("desired time= "))
@@ -100,6 +113,19 @@ start=time.time()
 
 for a in range(0,t2+1):
    
+    # #calculating distance of each particle at each instant from choosen line
+    # print(n)
+    # print(velocity.shape)
+    # for i in range(0,n):
+    #     print(n)
+    #     print(velocity.shape)
+    #     if (condition_for_approching_particle(n,a,velocity,area_vector) is True):
+    #         wer=distance_of_particle_from_wall(area_vector,parameters3d,point_on_plane,magnitude_of_area_vector,a,n)
+    #         if (wer<r):
+    #             qwe=new_velocity_after_collision_fo_wall(a,n,velocity,area_vector,e)
+    #             for j in range(0,3):
+    #                 velocity[a][n][j]=qwe[j]
+  
     #distances
     #array storing distances of any particle with each particle
     vary_distance_array_3d=np.zeros((n,n))
