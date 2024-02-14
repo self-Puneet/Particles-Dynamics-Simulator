@@ -378,3 +378,26 @@ def distance_of_particle_from_wall(area_vector,parameters3d,point_on_plane,magni
     dot_product=(area_vector[0]*(parameters3d[t][n][0]-point_on_plane[0]))+(area_vector[1]*(parameters3d[t][n][1]-point_on_plane[1]))+(area_vector[2]*(parameters3d[t][n][2]-point_on_plane[2]))
     distance=dot_product*magnitude_of_area_vector
     return distance
+
+def hello(n, parameters3d, t2):
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    for i in range(n):
+        x = []
+        y = []
+        z = []
+        for j in range(t2):
+            x.append(parameters3d[j][i][0])
+            y.append(parameters3d[j][i][1])  # Corrected
+            z.append(parameters3d[j][i][2])  # Corrected
+
+        # Plot the points for this iteration
+        ax.scatter(x, y, z)
+
+    # Set labels
+    ax.set_xlabel('X Label')
+    ax.set_ylabel('Y Label')
+    ax.set_zlabel('Z Label')
+
+    plt.show()
