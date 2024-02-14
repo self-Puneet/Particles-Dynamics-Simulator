@@ -6,6 +6,43 @@ import functions
 from functions import *
 import time
 import math
+import tkinter as tk
+from tkinter import ttk
+
+# GUI initialization
+root = tk.Tk()
+root.title("Particle Simulation")
+
+# Number of particles input
+particle_label = ttk.Label(root, text="Number of particles:")
+particle_label.grid(row=0, column=0, padx=10, pady=10)
+particle_entry = ttk.Entry(root)
+particle_entry.grid(row=0, column=1, padx=10, pady=10)
+
+# Time input
+time_label = ttk.Label(root, text="Desired time:")
+time_label.grid(row=1, column=0, padx=10, pady=10)
+time_entry = ttk.Entry(root)
+time_entry.grid(row=1, column=1, padx=10, pady=10)
+
+# Time division input
+division_label = ttk.Label(root, text="Time division (10^t):")
+division_label.grid(row=2, column=0, padx=10, pady=10)
+division_entry = ttk.Entry(root)
+division_entry.grid(row=2, column=1, padx=10, pady=10)
+
+# Button to start simulation
+simulate_button = ttk.Button(root, text="Simulate", command=simulate_particles)
+simulate_button.grid(row=3, column=0, columnspan=2, pady=20)
+
+# Result label
+result_label = ttk.Label(root, text="")
+result_label.grid(row=4, column=0, columnspan=2)
+
+# Start the Tkinter event loop
+root.mainloop()
+
+
 K=8.9975*(10**9)
 G=6.67430*(10**(-11))
 
