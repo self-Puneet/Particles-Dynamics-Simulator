@@ -1,53 +1,29 @@
 #modules, constants, functions:-
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
+from mpl_toolkits.mplot3d import Axes3D 
 import functions
 from functions import *
 import time
 import math
-import tkinter as tk
-from tkinter import ttk
-
-# GUI initialization
-root = tk.Tk()
-root.title("Particle Simulation")
-
-# Number of particles input
-particle_label = ttk.Label(root, text="Number of particles:")
-particle_label.grid(row=0, column=0, padx=10, pady=10)
-particle_entry = ttk.Entry(root)
-particle_entry.grid(row=0, column=1, padx=10, pady=10)
-
-# Time input
-time_label = ttk.Label(root, text="Desired time:")
-time_label.grid(row=1, column=0, padx=10, pady=10)
-time_entry = ttk.Entry(root)
-time_entry.grid(row=1, column=1, padx=10, pady=10)
-
-# Time division input
-division_label = ttk.Label(root, text="Time division (10^t):")
-division_label.grid(row=2, column=0, padx=10, pady=10)
-division_entry = ttk.Entry(root)
-division_entry.grid(row=2, column=1, padx=10, pady=10)
-
-# Button to start simulation
-simulate_button = ttk.Button(root, text="Simulate", command=simulate_particles)
-simulate_button.grid(row=3, column=0, columnspan=2, pady=20)
-
-# Result label
-result_label = ttk.Label(root, text="")
-result_label.grid(row=4, column=0, columnspan=2)
-
-# Start the Tkinter event loop
-root.mainloop()
-
-
 K=8.9975*(10**9)
 G=6.67430*(10**(-11))
 
 #number of particles
 n=int(input("numbers of particles= "))
+
+#radius of particles
+r=0.0001
+
+#cofficient of restitution 
+e=1
+ 
+# #wall equation
+# area_vector=input("enter area vector of wall: ")
+# area_vector=eval(area_vector)
+# point_on_plane=input("enter point on plane: ")
+# point_on_plane=eval(point_on_plane)
+# magnitude_of_area_vector=((area_vector[0]**2)+(area_vector[1]**2)+(area_vector[2]**2))**(1/2)
 
 #time intervals
 t=float(input("desired time= "))
@@ -137,6 +113,19 @@ start=time.time()
 
 for a in range(0,t2+1):
    
+    # #calculating distance of each particle at each instant from choosen line
+    # print(n)
+    # print(velocity.shape)
+    # for i in range(0,n):
+    #     print(n)
+    #     print(velocity.shape)
+    #     if (condition_for_approching_particle(n,a,velocity,area_vector) is True):
+    #         wer=distance_of_particle_from_wall(area_vector,parameters3d,point_on_plane,magnitude_of_area_vector,a,n)
+    #         if (wer<r):
+    #             qwe=new_velocity_after_collision_fo_wall(a,n,velocity,area_vector,e)
+    #             for j in range(0,3):
+    #                 velocity[a][n][j]=qwe[j]
+  
     #distances
     #array storing distances of any particle with each particle
     vary_distance_array_3d=np.zeros((n,n))
@@ -342,11 +331,6 @@ for a in range(0,t2+1):
     torque_1d[i]=s**(1/2)
 
     print(f"hello{a}")
-    # demon=speed[a][1]
-    # # testing our program
-    # for i in range(0,3):
-    #     parameters3d[a+1][0][i]=parameters3d[a][0][i]    
-
 
 #extras
 total_linear_momuntum=np.sum(linear_momentum,axis=1)
@@ -367,15 +351,8 @@ print("------------------------------------------------")
 dis=(((parameters3d[a][1][0]-parameters3d[0][1][0])**2)+((parameters3d[a][1][1]-parameters3d[0][1][1])**2)+((parameters3d[a][1][2]-parameters3d[0][1][2])**2))**(1/2)
 
 
-print("final- initial position = ",dis)
-print("final velocity = ",demon)
-print("initial velocity = ", 13.1534)
-print("final - initial velocity = ",abs(13.1534-demon))
-print("percentage error = ",(abs(13.1534-demon)*100)/(13.1534))
-
 #calling graph drawing functions
 force_plot(net_force,t2,n,dt,t)
-hello(n,parameters3d,t2)
 coordinates_plot(parameters3d,t2,n,t)
 speed_plot(speed,dt,n,t2,t)
 linear_momentum_plot(linear_momentum,t2,dt,n,t)
