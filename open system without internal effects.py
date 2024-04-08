@@ -76,7 +76,7 @@ displacement_3d=np.zeros((t2+1,n,3))
 displacement=np.zeros((n,3))
 
 #energy
-KE=np.zeros((t2+1,n))
+KE = np.zeros((t2+1,n))
 total_KE=np.zeros(t2+1)
 EPE_3d=np.zeros((t2+1,n,n))
 EPE_2d=np.zeros((t2+1,n))
