@@ -6,28 +6,199 @@ import functions
 from functions import *
 import time
 import math
+from tkinter import *
+from tkinter import messagebox
+from PIL import Image, ImageTk
+import random
 K=8.9975*(10**9)
 G=6.67430*(10**(-11))
 
-#number of particles
-n=int(input("numbers of particles= "))
 
-#radius of particles
-r=0.0001
+# #popup function
+# def show_popup():
+#     messagebox.showwarning("Input Value Error", "You have inserted wrong Value for either of number of particles, total time or dt time !!!")
 
-#cofficient of restitution 
-e=1
- 
-# #wall equation
-# area_vector=input("enter area vector of wall: ")
-# area_vector=eval(area_vector)
-# point_on_plane=input("enter point on plane: ")
-# point_on_plane=eval(point_on_plane)
-# magnitude_of_area_vector=((area_vector[0]**2)+(area_vector[1]**2)+(area_vector[2]**2))**(1/2)
+# #getting values of coordiates, velocity, mass, charge
+# def coordinates_velocity_mass_charge(n,i,mass_entry,charge_entry,x_coordinates_entry,y_coordinates_entry,z_coordinates_entry,x_velocity_entry,y_velocity_entry,z_velocity_entry):
+#     m=float(mass_entry.get())
+#     c=float(charge_entry.get())
+#     x_c=float(x_coordinates_entry.get())
+#     y_c=float(y_coordinates_entry.get())
+#     z_c=float(z_coordinates_entry.get())
+#     x_v=float(x_velocity_entry.get())
+#     y_v=float(y_velocity_entry.get())
+#     z_v=float(z_velocity_entry.get())
+
+#     #opening file and checking how much content is written in it
+#     with open ("input_initial_values.txt",'r') as file:file_content=file.readlines()
+    
+#     #updating file_content_new so that later it could be inserted into file
+#     file_content.append("\n"+str(x_c)+","+str(y_c)+","+str(z_c)+","+str(c)+","+str(m))
+#     file_content.append("\n"+str(x_v)+","+str(y_v)+","+str(z_v))
+
+#     #uploading file content into actual file
+#     with open("input_initial_values.txt",'w') as file:
+#         file.writelines(file_content)
+
+# #get calues of n, t, dt function 
+# def get_values_and_insert_coordinates():
+#     try:
+        
+#         #making variables for stroring n, t, dt
+#         n=int(number_of_particle_entry.get())
+#         t=int(total_time_entry.get())
+#         dt=int(dt_entry.get())
+        
+#         #writting the content in file
+#         with open("input_initial_values.txt",'w') as file:
+#             file.write(str(n)+'\n'+str(t)+'\n'+str(dt))
+        
+#         # for i in range(0,n):
+#         i=0    
+#         while i<n:
+#             #space label
+#             space_label3=Label(root,text="-"*137)
+#             space_label3.grid(row=5,column=0,columnspan=9)
+#             space_label4=Label(root,text=" "*137)
+#             space_label4.grid(row=7,column=0,columnspan=9)
+#             space_label5=Label(root,text="-"*137)
+#             space_label5.grid(row=11,column=0,columnspan=9)
+            
+#             #mass
+#             mass_label=Label(root,text=f"Mass {i+1}")
+#             mass_label.grid(column=1,row=6)
+#             mass_entry=Entry(root,width=10)
+#             mass_entry.grid(row=6,column=2)
+
+#             #charge
+#             charge_label=Label(root,text=f"Charge {i+1}")
+#             charge_label.grid(row=6,column=3)
+#             charge_entry=Entry(root,width=10)
+#             charge_entry.grid(row=6,column=4)
+
+#             #coordinates label
+#             coordinates_label=Label(root,text=f"Coordinates {i+1}")
+#             coordinates_label.grid(row=9,column=0)
+
+#             #velocity label
+#             velocity_label=Label(root,text=f"Velocity {i+1}")  
+#             velocity_label.grid(row=9,column=3)
+
+#             #  x,y,z for coordinates 
+#             x_coordinates_label=Label(root,text="X- coord")
+#             y_coordinates_label=Label(root,text="Y- coord")
+#             z_coordinates_label=Label(root,text="Z- coord")
+#             x_coordinates_label.grid(row=8,column=1)
+#             y_coordinates_label.grid(row=9,column=1)
+#             z_coordinates_label.grid(row=10,column=1)
+
+#             # x,y,z for coordinates velocity
+#             x_velocity_label=Label(root,text="X- coord")
+#             y_velocity_label=Label(root,text="Y- coord")
+#             z_velocity_label=Label(root,text="Z- coord")
+#             x_velocity_label.grid(row=8,column=4)
+#             y_velocity_label.grid(row=9,column=4)
+#             z_velocity_label.grid(row=10,column=4)
+
+#             #entry panel for coordinates
+#             x_coordinates_entry=Entry(root,width=10)
+#             y_coordinates_entry=Entry(root,width=10)
+#             z_coordinates_entry=Entry(root,width=10)
+#             x_coordinates_entry.grid(row=8,column=2)
+#             y_coordinates_entry.grid(row=9,column=2)
+#             z_coordinates_entry.grid(row=10,column=2)
+
+#             #entry panel for velocity
+#             x_velocity_entry=Entry(root,width=10)
+#             y_velocity_entry=Entry(root,width=10)
+#             z_velocity_entry=Entry(root,width=10)
+#             x_velocity_entry.grid(row=8,column=5)
+#             y_velocity_entry.grid(row=9,column=5)
+#             z_velocity_entry.grid(row=10,column=5)
+
+#             #button to except values of coordinates, mass, charge, velocity
+#             coordinates_velocity_button=Button(root,text=f"Except the Values \n for particle {i+1}",command= lambda: coordinates_velocity_mass_charge(n,i,mass_entry,charge_entry,x_coordinates_entry,y_coordinates_entry,z_coordinates_entry,x_velocity_entry,y_velocity_entry,z_velocity_entry))
+#             coordinates_velocity_button.grid(row=12,column=2,columnspan=2)
+            
+#             h=input()
+#             #input panel to stop 
+#             i=i+1
+            
+#     except ValueError:
+#         show_popup()
+
+# # main widget
+# root=Tk()
+
+# # icon widget
+# root.iconbitmap("project icon.ico")
+
+# # title widget
+# root.title ("3-D Physics Simulator")
+
+# # geometry of main widget
+# root.geometry("700x300") 
+
+# # image 
+# image_path="project image.png"
+# img=Image.open(image_path)
+# img=img.resize((100,100))
+# img=ImageTk.PhotoImage(img)
+# image=Label(root,width=100,height=100,image=img)
+# image.grid(row=0,column=2,columnspan=1)
+
+# # Main Title
+# Title=Label(root,text="    3-D  PHYSICS  SIMULATOR",font=("Times New Roman",16,"bold"))
+# Title.grid(row=0,column=3,columnspan=4)
+
+# #space label
+# space_label1=Label(root,text="-"*137)
+# space_label1.grid(row=1,column=0,columnspan=9)
+
+# #number of particles and time.
+# number_of_particle_label=Label(root,text="Number of Particles  ")
+# number_of_particle_label.grid(row=2,column=0)
+# total_time_label=Label(root,text="Total Time  ")
+# total_time_label.grid(row=2,column=2)
+# dt_label=Label(root,text="Fraction of 1s  ")
+# dt_label.grid(row=2,column=4)
+
+# #input panel for number of particles and time
+# number_of_particle_entry=Entry(root, width=10)
+# number_of_particle_entry.grid(row=2,column=1)
+# total_time_entry=Entry(root,width=10)
+# total_time_entry.grid(row=2,column=3)
+# dt_entry=Entry(root,width=10)
+# dt_entry.grid(row=2,column=5)
+
+# #space label
+# space_label2=Label(root,text="                                          ")
+# space_label2.grid(row=3,column=0,columnspan=7)
+
+# #buttton, getting number of particles, time, dt
+# user_defined_coordinates=Button(root,text="Get Value and \nInsert Coordinates",command=get_values_and_insert_coordinates)
+# user_defined_coordinates.grid(row=4,column=2)
+
+
+# #root widget mainloop end
+# root.mainloop()
+
+
+with open("input_initial_values.txt")as file:
+    file_content=file.readlines()
+n=int(file_content[0])
+t=float(file_content[1])
+t1=float(file_content[2])
+parameter=[]
+velocity123=[]
+for i in range(0,n):
+    para=list(map(float,file_content[3+i*2].strip().split(",")))
+    velo=list(map(float,file_content[4+i*2].strip().split(",")))
+    parameter.append(para)
+    velocity123.append(velo)
+
 
 #time intervals
-t=float(input("desired time= "))
-t1=int(input("enter t for 10^t wehre 10^t is division of 1 sec= "))
 dt=(10**t1)**(-1)
 t2=int(t/dt)
 
@@ -35,25 +206,9 @@ t2=int(t/dt)
 parameters3d=np.zeros((t2+2,n,5))
 velocity=np.zeros((t2+2,n,3)) 
 
-#inputing initial dimension of n particles
-parameters=[]
-for ab in range(0,n):
-    str = input(f"\t\tEnter dimensionas of particle {ab+1}: ")
-    list1=eval(str)
-    parameters.append(list1)
-parameters3d[0]=parameters
-
-#inputing velocities of particles
-velocity2d=[]
-for ab in range(0,n):
-    str=input(f"\t\t\tvelocity of particle {ab+1}:")
-    list2=eval(str)
-    velocity2d.append(list2)
-velocity[0]=velocity2d
-
-#inputing coordinates of random point
-str=input("\t\t\tcoordinate of random point: ")
-random_point=eval(str)
+#inputing initial dimension of n particles and initial velocity
+parameters3d[0]=parameter
+velocity[0]=velocity123
 
 # introducing all arrays before initiating loop.
 #distance
@@ -96,36 +251,10 @@ TPE=np.zeros((t2+1))
 energy=np.zeros((t2+1,n))
 total_energy=np.zeros((t2+1))
 
-#angular momentum
-angular_momentum_3d=np.zeros((t2+1,n,3))
-angular_momentum_2d=np.zeros((t2+1,n))
-vector_angular_momentum_1d=np.zeros((t2+1,3))
-angular_momentum_1d=np.zeros((t2+1))
-distance_vector_random=np.zeros((t2+1,n,3))
-
-#torque
-torque=np.zeros((t2+1,n,3))
-net_torque=np.zeros((t2+1,n))
-torque_2d=np.zeros((t2+1,3))
-torque_1d=np.zeros((t2+1))
-
 start=time.time()
 
 for a in range(0,t2+1):
    
-    # #calculating distance of each particle at each instant from choosen line
-    # print(n)
-    # print(velocity.shape)
-    # for i in range(0,n):
-    #     print(n)
-    #     print(velocity.shape)
-    #     if (condition_for_approching_particle(n,a,velocity,area_vector) is True):
-    #         wer=distance_of_particle_from_wall(area_vector,parameters3d,point_on_plane,magnitude_of_area_vector,a,n)
-    #         if (wer<r):
-    #             qwe=new_velocity_after_collision_fo_wall(a,n,velocity,area_vector,e)
-    #             for j in range(0,3):
-    #                 velocity[a][n][j]=qwe[j]
-  
     #distances
     #array storing distances of any particle with each particle
     vary_distance_array_3d=np.zeros((n,n))
@@ -174,6 +303,8 @@ for a in range(0,t2+1):
         vary_electrostatic_force[i]=np.sum(electrostatic_force_4d[a][i],axis=0)
         vary_gravitational_force[i]=np.sum(gravitational_force_4d[a][i],axis=0)
         vary_force[i]=np.sum(force_4d[a][i],axis=0)
+
+
     vary_electrostatic_force=np.transpose(vary_electrostatic_force)
     vary_gravitational_force=np.transpose(vary_gravitational_force)
     vary_force=np.transpose(vary_force)
@@ -286,61 +417,7 @@ for a in range(0,t2+1):
     #GPE of each particle due to all particles agrigately
     GPE_2d[a]=np.sum(GPE_3d[a],axis=0)
 
-
-    #finding distance vector of any particle from the random particle
-    for j in range(0,n):
-        for k in range(0,3):
-            distance_vector_random[a][j][k]=parameters3d[a][j][k]-random_point[k]
-    
-    #angular momentum
-    #vector form of angular momentum of any particle at any instant
-    for j in range(0,n):
-        for k in range(0,3):
-            c=np.zeros((3))
-            c=cros_product(distance_vector_random[a][j],velocity[a][j])
-            angular_momentum_3d[a][j][k]=parameters3d[a][j][4]*c[k]
-    #net angular momentum of each particles at any instant
-    for j in range(0,n):
-        s=0
-        for k in range(0,3):s=s+(angular_momentum_3d[a][j][k]**2)
-        angular_momentum_2d[a][j]=s**(1/2)
-    #vector form of angular momentum of whole system of particles at any instant
-    vector_angular_momentum_1d[a]=np.sum(angular_momentum_3d[a],axis=0)
-    #net angular momentum of whole system of particles at any instant
-    s=0
-    for j in range(0,3):s=s+(vector_angular_momentum_1d[a][j]**2) 
-    s=s**(1/2)
-    angular_momentum_1d[a]=s
-
-    # toque
-    #vectorial torque
-    for j in range(0,n):
-        for k in range(0,3):
-            torque[a][j][k]=cros_product(distance_vector_random[a][j],force[a][j])[k]
-    #net torque on each particle
-    for j in range(0,n):
-        s=0
-        for k in range(0,3):s=s+(torque[a][j][k]**2)
-        net_torque[a][j]=s**(1/2)
-    #torque on whole system of particle vectorially
-    torque_2d[a]=np.sum(torque[a],axis=0)
-    #net torque on whole system of particles
-    s=0
-    for j in range(0,3):
-        s=s+(torque_2d[a][j]**2)
-    torque_1d[i]=s**(1/2)
-
     print(f"hello{a}")
-
-
-# ---------------------------------------------------------------------------------------------------------------
-    demon=speed[a][1]
-    # testing our program
-    for i in range(0,3):
-        parameters3d[a+1][0][i]=parameters3d[a][0][i]    
-# ---------------------------------------------------------------------------------------------------------------
-    
-
 
 #extras
 total_linear_momuntum=np.sum(linear_momentum,axis=1)
@@ -358,29 +435,24 @@ print("total time = ",end-start)
 print("time for 1 iteration = ",(end-start)/(t2+1))
 
 print("------------------------------------------------")
-dis=(((parameters3d[a][1][0]-parameters3d[0][1][0])**2)+((parameters3d[a][1][1]-parameters3d[0][1][1])**2)+((parameters3d[a][1][2]-parameters3d[0][1][2])**2))**(1/2)
-
-# ---------------------------------------------------------------------------------------------------------------
-print("final- initial position = ",dis)
-print("final velocity = ",demon)
-print("initial velocity = ", 13.1534)
-print("final - initial velocity = ",abs(13.1534-demon))
-print("percentage error = ",(abs(13.1534-demon)*100)/(13.1534))
-# ---------------------------------------------------------------------------------------------------------------
 
 #calling graph drawing functions
-force_plot(net_force,t2,n,dt,t)
+# timeX=np.zeros(t2+1)   
+# for i in range(0,t2+1): timeX[i]=i*dt
+# force_plot(timeX, net_force,n)
+# print(net_force)
+# hello(n,parameters3d,t2)
+# speed_plot(speed,dt,n,t2,t)
+# linear_momentum_plot(linear_momentum,t2,dt,n,t)
+# total_linear_momentum_plot(total_linear_momuntum,dt,t,t2)
+# KE_plot(KE,t2,dt,t,n)
+# total_KE_plot(total_KE,t2,dt,t)
+# EPE_plot(t2,n,EPE_2d,dt,t)
+# GPE_plot(t2,t,n,dt,GPE_2d)
+# TPE_plot(dt,n,t,TPE_2d,t2)
+# total_EPE_plot(EPE,t2,dt,t)
+# total_GPE_plot(GPE,t2,dt,t)
+# total_TPE_plot(TPE,t2,dt,t)
+# energy_plot(energy,t2,n,t,dt)
+# total_energy_plot(total_energy,t2,t,dt)
 coordinates_plot(parameters3d,t2,n,t)
-speed_plot(speed,dt,n,t2,t)
-linear_momentum_plot(linear_momentum,t2,dt,n,t)
-total_linear_momentum_plot(total_linear_momuntum,dt,t,t2)
-KE_plot(KE,t2,dt,t,n)
-total_KE_plot(total_KE,t2,dt,t)
-EPE_plot(t2,n,EPE_2d,dt,t)
-GPE_plot(t2,t,n,dt,GPE_2d)
-TPE_plot(dt,n,t,TPE_2d,t2)
-total_EPE_plot(EPE,t2,dt,t)
-total_GPE_plot(GPE,t2,dt,t)
-total_TPE_plot(TPE,t2,dt,t)
-energy_plot(energy,t2,n,t,dt)
-total_energy_plot(total_energy,t2,t,dt)
