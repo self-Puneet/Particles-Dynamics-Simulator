@@ -9,40 +9,6 @@ import math
 import tkinter as tk
 from tkinter import ttk
 
-# # GUI initialization
-# root = tk.Tk()
-# root.title("Particle Simulation")
-
-# # Number of particles input
-# particle_label = ttk.Label(root, text="Number of particles:")
-# particle_label.grid(row=0, column=0, padx=10, pady=10)
-# particle_entry = ttk.Entry(root)
-# particle_entry.grid(row=0, column=1, padx=10, pady=10)
-
-# # Time input
-# time_label = ttk.Label(root, text="Desired time:")
-# time_label.grid(row=1, column=0, padx=10, pady=10)
-# time_entry = ttk.Entry(root)
-# time_entry.grid(row=1, column=1, padx=10, pady=10)
-
-# # Time division input
-# division_label = ttk.Label(root, text="Time division (10^t):")
-# division_label.grid(row=2, column=0, padx=10, pady=10)
-# division_entry = ttk.Entry(root)
-# division_entry.grid(row=2, column=1, padx=10, pady=10)
-
-# # Button to start simulation
-# simulate_button = ttk.Button(root, text="Simulate", command=simulate_particles)
-# simulate_button.grid(row=3, column=0, columnspan=2, pady=20)
-
-# # Result label
-# result_label = ttk.Label(root, text="")
-# result_label.grid(row=4, column=0, columnspan=2)
-
-# # Start the Tkinter event loop
-# root.mainloop()
-
-
 K=8.9975*(10**9)
 G=6.67430*(10**(-11))
 
@@ -364,19 +330,19 @@ dis=(((parameters3d[a][1][0]-parameters3d[0][1][0])**2)+((parameters3d[a][1][1]-
 
 
 #calling graph drawing functions
-force_plot(net_force,t2,n,dt,t)
-hello(n,parameters3d,t2)
+# force_plot(net_force,t2,n,dt,t)
+# hello(n,parameters3d,t2)
 coordinates_plot(parameters3d,t2,n,t)
-speed_plot(speed,dt,n,t2,t)
-linear_momentum_plot(linear_momentum,t2,dt,n,t)
-total_linear_momentum_plot(total_linear_momuntum,dt,t,t2)
-KE_plot(KE,t2,dt,t,n)
-total_KE_plot(total_KE,t2,dt,t)
-EPE_plot(t2,n,EPE_2d,dt,t)
-GPE_plot(t2,t,n,dt,GPE_2d)
-TPE_plot(dt,n,t,TPE_2d,t2)
-total_EPE_plot(EPE,t2,dt,t)
-total_GPE_plot(GPE,t2,dt,t)
-total_TPE_plot(TPE,t2,dt,t)
-energy_plot(energy,t2,n,t,dt)
-total_energy_plot(total_energy,t2,t,dt)
+# speed_plot(speed,dt,n,t2,t)
+# linear_momentum_plot(linear_momentum,t2,dt,n,t)
+# total_linear_momentum_plot(total_linear_momuntum,dt,t,t2)
+# KE_plot(KE,t2,dt,t,n)
+# total_KE_plot(total_KE,t2,dt,t)
+# EPE_plot(t2,n,EPE_2d,dt,t)
+# GPE_plot(t2,t,n,dt,GPE_2d)
+# TPE_plot(dt,n,t,TPE_2d,t2)
+# total_EPE_plot(EPE,t2,dt,t)
+# total_GPE_plot(GPE,t2,dt,t)
+# total_TPE_plot(TPE,t2,dt,t)
+# energy_plot(energy,t2,n,t,dt)
+# total_energy_plot(total_energy,t2,t,dt)

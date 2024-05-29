@@ -1,7 +1,6 @@
 #modules, constants, functions:-
+# import tensorflow as tf
 import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D 
 import functions
 from functions import *
 import time
@@ -12,176 +11,6 @@ from PIL import Image, ImageTk
 import random
 K=8.9975*(10**9)
 G=6.67430*(10**(-11))
-
-
-# #popup function
-# def show_popup():
-#     messagebox.showwarning("Input Value Error", "You have inserted wrong Value for either of number of particles, total time or dt time !!!")
-
-# #getting values of coordiates, velocity, mass, charge
-# def coordinates_velocity_mass_charge(n,i,mass_entry,charge_entry,x_coordinates_entry,y_coordinates_entry,z_coordinates_entry,x_velocity_entry,y_velocity_entry,z_velocity_entry):
-#     m=float(mass_entry.get())
-#     c=float(charge_entry.get())
-#     x_c=float(x_coordinates_entry.get())
-#     y_c=float(y_coordinates_entry.get())
-#     z_c=float(z_coordinates_entry.get())
-#     x_v=float(x_velocity_entry.get())
-#     y_v=float(y_velocity_entry.get())
-#     z_v=float(z_velocity_entry.get())
-
-#     #opening file and checking how much content is written in it
-#     with open ("input_initial_values.txt",'r') as file:file_content=file.readlines()
-    
-#     #updating file_content_new so that later it could be inserted into file
-#     file_content.append("\n"+str(x_c)+","+str(y_c)+","+str(z_c)+","+str(c)+","+str(m))
-#     file_content.append("\n"+str(x_v)+","+str(y_v)+","+str(z_v))
-
-#     #uploading file content into actual file
-#     with open("input_initial_values.txt",'w') as file:
-#         file.writelines(file_content)
-
-# #get calues of n, t, dt function 
-# def get_values_and_insert_coordinates():
-#     try:
-        
-#         #making variables for stroring n, t, dt
-#         n=int(number_of_particle_entry.get())
-#         t=int(total_time_entry.get())
-#         dt=int(dt_entry.get())
-        
-#         #writting the content in file
-#         with open("input_initial_values.txt",'w') as file:
-#             file.write(str(n)+'\n'+str(t)+'\n'+str(dt))
-        
-#         # for i in range(0,n):
-#         i=0    
-#         while i<n:
-#             #space label
-#             space_label3=Label(root,text="-"*137)
-#             space_label3.grid(row=5,column=0,columnspan=9)
-#             space_label4=Label(root,text=" "*137)
-#             space_label4.grid(row=7,column=0,columnspan=9)
-#             space_label5=Label(root,text="-"*137)
-#             space_label5.grid(row=11,column=0,columnspan=9)
-            
-#             #mass
-#             mass_label=Label(root,text=f"Mass {i+1}")
-#             mass_label.grid(column=1,row=6)
-#             mass_entry=Entry(root,width=10)
-#             mass_entry.grid(row=6,column=2)
-
-#             #charge
-#             charge_label=Label(root,text=f"Charge {i+1}")
-#             charge_label.grid(row=6,column=3)
-#             charge_entry=Entry(root,width=10)
-#             charge_entry.grid(row=6,column=4)
-
-#             #coordinates label
-#             coordinates_label=Label(root,text=f"Coordinates {i+1}")
-#             coordinates_label.grid(row=9,column=0)
-
-#             #velocity label
-#             velocity_label=Label(root,text=f"Velocity {i+1}")  
-#             velocity_label.grid(row=9,column=3)
-
-#             #  x,y,z for coordinates 
-#             x_coordinates_label=Label(root,text="X- coord")
-#             y_coordinates_label=Label(root,text="Y- coord")
-#             z_coordinates_label=Label(root,text="Z- coord")
-#             x_coordinates_label.grid(row=8,column=1)
-#             y_coordinates_label.grid(row=9,column=1)
-#             z_coordinates_label.grid(row=10,column=1)
-
-#             # x,y,z for coordinates velocity
-#             x_velocity_label=Label(root,text="X- coord")
-#             y_velocity_label=Label(root,text="Y- coord")
-#             z_velocity_label=Label(root,text="Z- coord")
-#             x_velocity_label.grid(row=8,column=4)
-#             y_velocity_label.grid(row=9,column=4)
-#             z_velocity_label.grid(row=10,column=4)
-
-#             #entry panel for coordinates
-#             x_coordinates_entry=Entry(root,width=10)
-#             y_coordinates_entry=Entry(root,width=10)
-#             z_coordinates_entry=Entry(root,width=10)
-#             x_coordinates_entry.grid(row=8,column=2)
-#             y_coordinates_entry.grid(row=9,column=2)
-#             z_coordinates_entry.grid(row=10,column=2)
-
-#             #entry panel for velocity
-#             x_velocity_entry=Entry(root,width=10)
-#             y_velocity_entry=Entry(root,width=10)
-#             z_velocity_entry=Entry(root,width=10)
-#             x_velocity_entry.grid(row=8,column=5)
-#             y_velocity_entry.grid(row=9,column=5)
-#             z_velocity_entry.grid(row=10,column=5)
-
-#             #button to except values of coordinates, mass, charge, velocity
-#             coordinates_velocity_button=Button(root,text=f"Except the Values \n for particle {i+1}",command= lambda: coordinates_velocity_mass_charge(n,i,mass_entry,charge_entry,x_coordinates_entry,y_coordinates_entry,z_coordinates_entry,x_velocity_entry,y_velocity_entry,z_velocity_entry))
-#             coordinates_velocity_button.grid(row=12,column=2,columnspan=2)
-            
-#             h=input()
-#             #input panel to stop 
-#             i=i+1
-            
-#     except ValueError:
-#         show_popup()
-
-# # main widget
-# root=Tk()
-
-# # icon widget
-# root.iconbitmap("project icon.ico")
-
-# # title widget
-# root.title ("3-D Physics Simulator")
-
-# # geometry of main widget
-# root.geometry("700x300") 
-
-# # image 
-# image_path="project image.png"
-# img=Image.open(image_path)
-# img=img.resize((100,100))
-# img=ImageTk.PhotoImage(img)
-# image=Label(root,width=100,height=100,image=img)
-# image.grid(row=0,column=2,columnspan=1)
-
-# # Main Title
-# Title=Label(root,text="    3-D  PHYSICS  SIMULATOR",font=("Times New Roman",16,"bold"))
-# Title.grid(row=0,column=3,columnspan=4)
-
-# #space label
-# space_label1=Label(root,text="-"*137)
-# space_label1.grid(row=1,column=0,columnspan=9)
-
-# #number of particles and time.
-# number_of_particle_label=Label(root,text="Number of Particles  ")
-# number_of_particle_label.grid(row=2,column=0)
-# total_time_label=Label(root,text="Total Time  ")
-# total_time_label.grid(row=2,column=2)
-# dt_label=Label(root,text="Fraction of 1s  ")
-# dt_label.grid(row=2,column=4)
-
-# #input panel for number of particles and time
-# number_of_particle_entry=Entry(root, width=10)
-# number_of_particle_entry.grid(row=2,column=1)
-# total_time_entry=Entry(root,width=10)
-# total_time_entry.grid(row=2,column=3)
-# dt_entry=Entry(root,width=10)
-# dt_entry.grid(row=2,column=5)
-
-# #space label
-# space_label2=Label(root,text="                                          ")
-# space_label2.grid(row=3,column=0,columnspan=7)
-
-# #buttton, getting number of particles, time, dt
-# user_defined_coordinates=Button(root,text="Get Value and \nInsert Coordinates",command=get_values_and_insert_coordinates)
-# user_defined_coordinates.grid(row=4,column=2)
-
-
-# #root widget mainloop end
-# root.mainloop()
 
 
 with open("input_initial_values.txt")as file:
@@ -196,6 +25,7 @@ for i in range(0,n):
     velo=list(map(float,file_content[4+i*2].strip().split(",")))
     parameter.append(para)
     velocity123.append(velo)
+
 
 
 #time intervals
@@ -455,4 +285,4 @@ print("------------------------------------------------")
 # total_TPE_plot(TPE,t2,dt,t)
 # energy_plot(energy,t2,n,t,dt)
 # total_energy_plot(total_energy,t2,t,dt)
-coordinates_plot(parameters3d,t2,n,t)
+# coordinates_plot(parameters3d,t2,n,t)
