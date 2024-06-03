@@ -40,15 +40,15 @@ Electrostatic_Force_Vector_4D = tf.Variable(tf.zeros([t2, 3, n, n]))
 Gravitational_Force_vector_4D = tf.Variable(tf.zeros([t2, 3, n, n]))
 Force_Vector_4D = tf.Variable(tf.zeros([t2, 3, n, n]))
 
-Electrostatic_Force_Vector = tf.Variable(tf.zeros([t2, 3, n]))
-Gravitational_Force_Vector = tf.Variable(tf.zeros([t2, 3, n]))
-Force_Vector = tf.Variable(tf.zeros([t2, 3, n]))
+Electrostatic_Force_Vector = tf.Variable(tf.zeros([t2, n, 3]))
+Gravitational_Force_Vector = tf.Variable(tf.zeros([t2, n, 3]))
+Force_Vector = tf.Variable(tf.zeros([t2, n, 3]))
 
 Electrostatic_Force_Resultant = tf.Variable(tf.zeros([t2, n]))
 Gravitational_Force_Resultant = tf.Variable(tf.zeros([t2, n]))
 Force_Resultant = tf.Variable(tf.zeros([t2, n]))
 
-Displacement = tf.Variable(tf.zeros([t2, n, 3]))
+Displacement = tf.Variable(tf.zeros([t2 + 1, n, 3]))
 
 
 Parameter[0].assign(tf.convert_to_tensor(parameter, dtype=tf.float32))
@@ -79,24 +79,34 @@ for it in range(0, t2):
                     Gravitational_Force_vector_4D[it, i, j, k].assign(grav)
 
     for i in range(0, 3):
-        Electrostatic_Force_Vector[it, i].assign(tf.reduce_sum(Electrostatic_Force_Vector_4D[it, i], axis=1))
-        Gravitational_Force_Vector[it, i].assign(tf.reduce_sum(Gravitational_Force_vector_4D[it, i], axis=1))
-        
-    Electrostatic_Force_Resultant[it].assign(tf.sqrt(tf.reduce_sum(tf.square(Electrostatic_Force_Vector[it]), axis=1)))
-    Gravitational_Force_Resultant[it].assign(tf.sqrt(tf.reduce_sum(tf.square(Gravitational_Force_Vector[it]), axis=1)))
-    Force_Resultant[it].assign(Electrostatic_Force_Resultant[it] + Gravitational_Force_Resultant[it])    
+        for j in range(0, n):
+            sum1 = 0
+            sum2 = 0
+            for k in range(0, n):
+                sum1 += Electrostatic_Force_Vector_4D[it, i, j, k]
+                sum2 += Gravitational_Force_vector_4D[it, i, j, k]
+            Electrostatic_Force_Vector[it, j, i].assign(sum1)
+            Gravitational_Force_Vector[it, j, i].assign(sum2)
+    
+
+    for i in range(0, n):
+        val1 = math.sqrt((Electrostatic_Force_Vector[it, i, 0] ** 2) + (Electrostatic_Force_Vector[it, i, 1] ** 2) + (Electrostatic_Force_Vector[it, i, 2] ** 2))
+        val2 = math.sqrt((Gravitational_Force_Vector[it, i, 0] ** 2) + (Gravitational_Force_Vector[it, i, 1] ** 2) + (Gravitational_Force_Vector[it, i, 2] ** 2))
+        Electrostatic_Force_Resultant[it, i].assign(val1)
+        Gravitational_Force_Resultant[it, i].assign(val2)
+    Force_Resultant = Electrostatic_Force_Resultant + Gravitational_Force_Resultant
 
     # Velocity
     for i in range(0, n):
         for j in range(0, 3):
-            vel = Velocity[it, i, j] + (Force_Resultant[it, i, j] * dt / Parameter[it, i, 4])
+            vel = Velocity[it, i, j] + (Force_Vector[it, i, j] * dt / Parameter[it, i, 4])
             Velocity[it + 1, i, j].assign(vel)
 
     # Displacement
     for i in range(0, n):
         for j in range(0, 3):
             if Parameter[it, i, 4] != 0:
-                dis = (Velocity[it, i, j] * dt) + (0.5 * Force_Resultant[it, i, j] * dt / Parameter[it, i, 4])
+                dis = (Velocity[it, i, j] * dt) + (0.5 * Force_Vector[it, i, j] * dt / Parameter[it, i, 4])
                 Displacement[it + 1, i, j].assign(dis)
 
     # Editing Dimensions
@@ -106,3 +116,4 @@ for it in range(0, t2):
             Parameter[it + 1, i, j].assign(new_parameter)
         Parameter[it + 1, i, 3].assign(Parameter[it, i, 3])
         Parameter[it + 1, i, 4].assign(Parameter[it, i, 4])
+    print(f"hello{it}")
